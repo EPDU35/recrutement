@@ -32,7 +32,10 @@ form.addEventListener('submit', async function (e) {
         return;
     }
 
-    const candidature = { nom, prenom, email, telephone, residence, poste, type_contrat: typeContrat, experience, portfolio, motivation };
+    const candidature = {
+        nom, prenom, email, telephone, residence,
+        poste, type_contrat: typeContrat, experience, portfolio, motivation
+    };
 
     btnSoumettre.disabled = true;
     btnSoumettre.textContent = 'Envoi en cours...';
