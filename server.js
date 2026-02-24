@@ -16,7 +16,16 @@ const PORT = process.env.PORT || 3000;
 // ============================================================
 //  MIDDLEWARES
 // ============================================================
-app.use(cors());
+app.use(cors({
+    origin: [
+        /\.vercel\.app$/,
+        'http://localhost:3000',
+        'http://localhost:5500',
+        'http://127.0.0.1:5500'
+    ],
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type']
+}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname))); // fichiers dans le même dossier que server.js
 
