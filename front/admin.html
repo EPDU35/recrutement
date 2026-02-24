@@ -477,7 +477,7 @@
         // CHARGEMENT
         async function chargerCandidatures() {
             try {
-                const reponse = await fetch('/api/candidatures');
+                const reponse = await fetch('https://recrutement-7th0.onrender.com/api/candidatures');
                 const data = await reponse.json();
                 toutesLesCandidatures = data;
                 afficherStats(data);
