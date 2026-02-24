@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="LOGO.png" type="image/x-icon">
+    <title>Admin — Candidatures Eliel Poster</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Outfit:wght@300;400;500;600&display=swap');
+
+        :root {
+            --rouge:        #d32f2f;
+            --rouge-sombre: #b71c1c;
+            --rouge-pale:   #ffebee;
+            --noir:         #0d0d0d;
+            --gris-moyen:   #4a4a4a;
+            --gris-clair:   #9e9e9e;
+            --gris-pale:    #f5f5f5;
+            --blanc:        #ffffff;
+            --font-titre:   'Poppins', sans-serif;
+            --font-corps:   'Outfit', sans-serif;
+            --transition:   0.3s ease;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-corps);
+            background: var(--gris-pale);
+            color: var(--noir);
+            min-height: 100vh;
+        }
+
+        /* HEADER ADMIN */
+        .admin-header {
+            background: var(--noir);
+            border-bottom: 3px solid var(--rouge);
+            padding: 1.2rem 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .admin-header .logo img {
+            height: 36px;
+            object-fit: contain;
+        }
+
+        .admin-header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .badge-admin {
+            font-family: var(--font-titre);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--rouge);
+            background: rgba(211, 47, 47, 0.12);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            border: 1px solid rgba(211, 47, 47, 0.3);
+        }
+
+        .btn-deconnexion {
+            font-family: var(--font-corps);
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.5);
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: color var(--transition);
+        }
+
+        .btn-deconnexion:hover { color: var(--blanc); }
+
+        /* CONTENU */
+        .admin-body {
+            padding: 3rem 4%;
+        }
+
+        .admin-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .admin-top h1 {
+            font-family: var(--font-titre);
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
+            color: var(--noir);
+        }
+
+        .admin-top h1 span {
+            color: var(--rouge);
+        }
+
+        .admin-top p {
+            font-size: 0.88rem;
+            color: var(--gris-clair);
+            margin-top: 0.3rem;
+        }
+
+        /* STATS */
+        .stats {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: var(--blanc);
+            border: 1px solid rgba(211, 47, 47, 0.1);
+            border-radius: 8px;
+            padding: 1.2rem 1.8rem;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .stat-card .stat-number {
+            font-family: var(--font-titre);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--rouge);
+            line-height: 1;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--gris-clair);
+            margin-top: 0.4rem;
+        }
+
+        /* BARRE RECHERCHE + FILTRE */
+        .barre-outils {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .barre-outils input,
+        .barre-outils select {
+            font-family: var(--font-corps);
+            font-size: 0.88rem;
+            padding: 0.65rem 1rem;
+            border: 1.5px solid rgba(211, 47, 47, 0.12);
+            border-radius: 6px;
+            background: var(--blanc);
+            color: var(--noir);
+            outline: none;
+            transition: border-color var(--transition);
+            appearance: none;
+        }
+
+        .barre-outils input { flex: 1; min-width: 200px; }
+        .barre-outils select { min-width: 160px; }
+
+        .barre-outils input:focus,
+        .barre-outils select:focus {
+            border-color: var(--rouge);
+        }
+
+        .barre-outils input::placeholder { color: var(--gris-clair); }
+
+        /* TABLEAU */
+        .tableau-wrapper {
+            background: var(--blanc);
+            border: 1px solid rgba(211, 47, 47, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(211, 47, 47, 0.06);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+        }
+
+        thead {
+            background: var(--noir);
+        }
+
+        thead th {
+            font-family: var(--font-titre);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            padding: 1.1rem 1.2rem;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        thead th:first-child { color: var(--rouge); }
+
+        tbody tr {
+            border-bottom: 1px solid rgba(211, 47, 47, 0.06);
+            transition: background var(--transition);
+        }
+
+        tbody tr:last-child { border-bottom: none; }
+
+        tbody tr:hover { background: var(--rouge-pale); }
+
+        tbody td {
+            font-size: 0.88rem;
+            color: var(--gris-moyen);
+            padding: 1rem 1.2rem;
+            vertical-align: middle;
+        }
+
+        tbody td:first-child {
+            font-family: var(--font-titre);
+            font-size: 0.75rem;
+            color: var(--gris-clair);
+        }
+
+        .nom-complet {
+            font-weight: 600;
+            color: var(--noir) !important;
+        }
+
+        /* BADGES POSTE / CONTRAT */
+        .badge {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            white-space: nowrap;
+        }
+
+        .badge-emploi    { background: #e3f2fd; color: #1565c0; }
+        .badge-stage     { background: #f3e5f5; color: #6a1b9a; }
+        .badge-freelance { background: #e8f5e9; color: #2e7d32; }
+
+        /* LIEN PORTFOLIO */
+        .lien-portfolio {
+            color: var(--rouge);
+            font-size: 0.82rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color var(--transition);
+        }
+
+        .lien-portfolio:hover { color: var(--rouge-sombre); text-decoration: underline; }
+
+        /* BOUTON VOIR MOTIVATION */
+        .btn-voir {
+            font-family: var(--font-corps);
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--rouge);
+            background: var(--rouge-pale);
+            border: 1px solid rgba(211,47,47,0.2);
+            border-radius: 4px;
+            padding: 0.35rem 0.8rem;
+            cursor: pointer;
+            transition: background var(--transition), color var(--transition);
+        }
+
+        .btn-voir:hover {
+            background: var(--rouge);
+            color: var(--blanc);
+        }
+
+        /* ETAT VIDE */
+        .etat-vide {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--gris-clair);
+        }
+
+        .etat-vide p { font-size: 0.95rem; }
+
+        /* CHARGEMENT */
+        .chargement {
+            text-align: center;
+            padding: 4rem;
+            color: var(--gris-clair);
+            font-size: 0.9rem;
+        }
+
+        /* MODAL MOTIVATION */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(13, 13, 13, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.actif { display: flex; }
+
+        .modal {
+            background: var(--blanc);
+            border-radius: 10px;
+            padding: 2.5rem;
+            max-width: 540px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .modal h3 {
+            font-family: var(--font-titre);
+            font-size: 1rem;
+            color: var(--noir);
+            margin-bottom: 1rem;
+        }
+
+        .modal h3 span { color: var(--rouge); }
+
+        .modal p {
+            font-size: 0.92rem;
+            color: var(--gris-moyen);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .modal-fermer {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            color: var(--gris-clair);
+            cursor: pointer;
+            transition: color var(--transition);
+            line-height: 1;
+        }
+
+        .modal-fermer:hover { color: var(--rouge); }
+
+        /* FOOTER */
+        footer {
+            background: var(--noir);
+            border-top: 3px solid var(--rouge);
+            padding: 1.5rem 4%;
+            text-align: center;
+        }
+
+        footer p {
+            color: rgba(255,255,255,0.35);
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div class="admin-header">
+        <div class="logo">
+            <img src="LOGO.png" alt="Logo Eliel Poster">
+        </div>
+        <div class="admin-header-right">
+            <span class="badge-admin">Espace Admin</span>
+            <button class="btn-deconnexion" onclick="window.location.href='index.html'">← Retour au site</button>
+        </div>
+    </div>
+
+    <!-- CORPS -->
+    <div class="admin-body">
+
+        <div class="admin-top">
+            <div>
+                <h1>Candidatures <span>reçues</span></h1>
+                <p>Toutes les candidatures soumises via le formulaire</p>
+            </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalCandidatures">—</div>
+                <div class="stat-label">Total candidatures</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalEmploi">—</div>
+                <div class="stat-label">Emplois</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalStage">—</div>
+                <div class="stat-label">Stages</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalFreelance">—</div>
+                <div class="stat-label">Freelances</div>
+            </div>
+        </div>
+
+        <!-- BARRE OUTILS -->
+        <div class="barre-outils">
+            <input type="text" id="recherche" placeholder="Rechercher par nom, email, poste...">
+            <select id="filtreContrat">
+                <option value="">Tous les contrats</option>
+                <option value="emploi">Emploi</option>
+                <option value="stage">Stage</option>
+                <option value="freelance">Freelance</option>
+            </select>
+            <select id="filtrePoste">
+                <option value="">Tous les postes</option>
+                <option value="developpeur_web">Développeur Web</option>
+                <option value="designer_graphique">Designer Graphique</option>
+                <option value="monteur_video">Monteur Vidéo</option>
+                <option value="community_manager">Community Manager</option>
+                <option value="stage">Stage ouvert</option>
+                <option value="autre">Autre</option>
+            </select>
+        </div>
+
+        <!-- TABLEAU -->
+        <div class="tableau-wrapper">
+            <div class="chargement" id="chargement">Chargement des candidatures...</div>
+            <table id="tableau" style="display:none;">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nom complet</th>
+                        <th>Email</th>
+                        <th>Téléphone</th>
+                        <th>Poste</th>
+                        <th>Contrat</th>
+                        <th>Expérience</th>
+                        <th>Portfolio</th>
+                        <th>Date</th>
+                        <th>Motivation</th>
+                    </tr>
+                </thead>
+                <tbody id="corps-tableau"></tbody>
+            </table>
+            <div class="etat-vide" id="etatVide" style="display:none;">
+                <p>Aucune candidature trouvée.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL MOTIVATION -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <button class="modal-fermer" id="modalFermer">✕</button>
+            <h3>Message de <span id="modalNom"></span></h3>
+            <p id="modalMotivation"></p>
+        </div>
+    </div>
+
+    <footer>
+        <p>Eliel Poster — Interface d'administration · Accès restreint</p>
+    </footer>
+
+    <script>
+        let toutesLesCandidatures = [];
+
+        // CHARGEMENT
+        async function chargerCandidatures() {
+            try {
+                const reponse = await fetch('/api/candidatures');
+                const data = await reponse.json();
+                toutesLesCandidatures = data;
+                afficherStats(data);
+                afficherTableau(data);
+            } catch (err) {
+                document.getElementById('chargement').textContent = 'Erreur : impossible de contacter le serveur.';
+            }
+        }
+
+        // STATS
+        function afficherStats(data) {
+            document.getElementById('totalCandidatures').textContent = data.length;
+            document.getElementById('totalEmploi').textContent    = data.filter(c => c.type_contrat === 'emploi').length;
+            document.getElementById('totalStage').textContent     = data.filter(c => c.type_contrat === 'stage').length;
+            document.getElementById('totalFreelance').textContent = data.filter(c => c.type_contrat === 'freelance').length;
+        }
+
+        // AFFICHAGE TABLEAU
+        function afficherTableau(data) {
+            const corps = document.getElementById('corps-tableau');
+            const tableau = document.getElementById('tableau');
+            const vide = document.getElementById('etatVide');
+            const chargement = document.getElementById('chargement');
+
+            chargement.style.display = 'none';
+            corps.innerHTML = '';
+
+            if (data.length === 0) {
+                tableau.style.display = 'none';
+                vide.style.display = 'block';
+                return;
+            }
+
+            vide.style.display = 'none';
+            tableau.style.display = 'table';
+
+            data.forEach(c => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${c.id}</td>
+                    <td class="nom-complet">${c.prenom} ${c.nom}</td>
+                    <td><a href="mailto:${c.email}" style="color:var(--rouge)">${c.email}</a></td>
+                    <td>${c.telephone}</td>
+                    <td>${formaterPoste(c.poste)}</td>
+                    <td><span class="badge badge-${c.type_contrat}">${c.type_contrat}</span></td>
+                    <td>${formaterExperience(c.experience)}</td>
+                    <td>${c.portfolio ? `<a href="${c.portfolio}" target="_blank" class="lien-portfolio">Voir ↗</a>` : '<span style="color:var(--gris-clair);font-size:0.8rem">—</span>'}</td>
+                    <td style="white-space:nowrap;font-size:0.8rem">${formaterDate(c.date_envoi)}</td>
+                    <td><button class="btn-voir" onclick="ouvrirModal('${c.prenom} ${c.nom}', \`${c.motivation.replace(/`/g, "'")}\`)">Lire</button></td>
+                `;
+                corps.appendChild(tr);
+            });
+        }
+
+        // FILTRES
+        function filtrer() {
+            const recherche = document.getElementById('recherche').value.toLowerCase();
+            const contrat   = document.getElementById('filtreContrat').value;
+            const poste     = document.getElementById('filtrePoste').value;
+
+            const filtre = toutesLesCandidatures.filter(c => {
+                const texte = `${c.nom} ${c.prenom} ${c.email} ${c.poste}`.toLowerCase();
+                return (
+                    (!recherche || texte.includes(recherche)) &&
+                    (!contrat   || c.type_contrat === contrat) &&
+                    (!poste     || c.poste === poste)
+                );
+            });
+
+            afficherTableau(filtre);
+        }
+
+        document.getElementById('recherche').addEventListener('input', filtrer);
+        document.getElementById('filtreContrat').addEventListener('change', filtrer);
+        document.getElementById('filtrePoste').addEventListener('change', filtrer);
+
+        // MODAL
+        function ouvrirModal(nom, motivation) {
+            document.getElementById('modalNom').textContent = nom;
+            document.getElementById('modalMotivation').textContent = motivation;
+            document.getElementById('modalOverlay').classList.add('actif');
+        }
+
+        document.getElementById('modalFermer').addEventListener('click', () => {
+            document.getElementById('modalOverlay').classList.remove('actif');
+        });
+
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) this.classList.remove('actif');
+        });
+
+        // UTILITAIRES
+        function formaterPoste(poste) {
+            const postes = {
+                developpeur_web: 'Développeur Web',
+                designer_graphique: 'Designer Graphique',
+                monteur_video: 'Monteur Vidéo',
+                community_manager: 'Community Manager',
+                stage: 'Stage ouvert',
+                autre: 'Autre'
+            };
+            return postes[poste] || poste;
+        }
+
+        function formaterExperience(exp) {
+            const niveaux = {
+                debutant: 'Débutant',
+                intermediaire: 'Intermédiaire',
+                confirme: 'Confirmé'
+            };
+            return niveaux[exp] || exp;
+        }
+
+        function formaterDate(date) {
+            if (!date) return '—';
+            return new Date(date).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' });
+        }
+
+        // LANCEMENT
+        chargerCandidatures();
+    </script>
+
+</body>
+</html>

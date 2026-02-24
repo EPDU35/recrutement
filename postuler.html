@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="postuler.css">
+    <link rel="shortcut icon" href="LOGO.png" type="image/x-icon">
+    <title>Postuler — Eliel Poster</title>
+</head>
+<body>
+
+    <div class="entete-logo">
+        <div class="logo">
+            <img src="LOGO.png" alt="Logo Eliel Poster">
+        </div>
+    </div>
+
+    <section class="postuler-section">
+        <div class="postuler-wrapper">
+
+            <div class="postuler-header">
+                <h4>Rejoignez l'équipe</h4>
+                <h1>Déposez votre candidature</h1>
+                <p>Remplissez ce formulaire et nous reviendrons vers vous dans les plus brefs délais.</p>
+            </div>
+
+            <form id="formPostuler" novalidate>
+
+                <div class="form-section">
+                    <h2 class="section-titre">Informations personnelles</h2>
+
+                    <div class="form-row">
+                        <div class="input-box">
+                            <label for="nom">Nom <span class="requis">*</span></label>
+                            <input type="text" id="nom" name="nom" placeholder="Ex : Kouassi" required>
+                        </div>
+                        <div class="input-box">
+                            <label for="prenom">Prénom <span class="requis">*</span></label>
+                            <input type="text" id="prenom" name="prenom" placeholder="Ex : Eliel" required>
+                        </div>
+                    </div>
+
+                    <div class="input-box">
+                        <label for="email">Adresse e-mail <span class="requis">*</span></label>
+                        <input type="email" id="email" name="email" placeholder="Ex : exemple@gmail.com" required>
+                    </div>
+
+                    <div class="input-box">
+                        <label for="telephone">Numéro de téléphone (WhatsApp) <span class="requis">*</span></label>
+                        <input type="tel" id="telephone" name="telephone" placeholder="Ex : +225 07 00 00 00 00" required>
+                    </div>
+
+                    <div class="input-box">
+                        <label for="residence">Lieu de résidence <span class="requis">*</span></label>
+                        <input type="text" id="residence" name="residence" placeholder="Ex : Abidjan, Cocody" required>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2 class="section-titre">Candidature</h2>
+
+                    <div class="input-box">
+                        <label for="poste">Poste souhaité <span class="requis">*</span></label>
+                        <div class="select-wrapper">
+                            <select id="poste" name="poste" required>
+                                <option value="" disabled selected>Sélectionnez un poste</option>
+                                <option value="developpeur_web">Développeur Web</option>
+                                <option value="designer_graphique">Designer Graphique</option>
+                                <option value="monteur_video">Monteur Vidéo</option>
+                                <option value="community_manager">Community Manager</option>
+                                <option value="stage">Stage — Domaine ouvert</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-box">
+                        <label for="type_contrat">Type de contrat <span class="requis">*</span></label>
+                        <div class="select-wrapper">
+                            <select id="type_contrat" name="type_contrat" required>
+                                <option value="" disabled selected>Sélectionnez un type</option>
+                                <option value="emploi">Emploi</option>
+                                <option value="stage">Stage</option>
+                                <option value="freelance">Freelance</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-box">
+                        <label for="experience">Niveau d'expérience <span class="requis">*</span></label>
+                        <div class="select-wrapper">
+                            <select id="experience" name="experience" required>
+                                <option value="" disabled selected>Sélectionnez votre niveau</option>
+                                <option value="debutant">Débutant (moins de 1 an)</option>
+                                <option value="intermediaire">Intermédiaire (1 – 3 ans)</option>
+                                <option value="confirme">Confirmé (3 ans et plus)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-box">
+                        <label for="portfolio">Lien portfolio / LinkedIn <span class="optionnel">(facultatif)</span></label>
+                        <input type="url" id="portfolio" name="portfolio" placeholder="Ex : https://monportfolio.com">
+                    </div>
+
+                    <div class="input-box">
+                        <label for="motivation">Message de motivation <span class="requis">*</span></label>
+                        <textarea id="motivation" name="motivation" rows="5" placeholder="Parlez-nous de vous, de vos compétences et de ce qui vous motive à rejoindre Eliel Poster..." required></textarea>
+                    </div>
+                </div>
+
+                <div id="messageRetour" class="message-retour"></div>
+
+                <button type="submit" class="btn-hero" id="btnSoumettre">Envoyer ma candidature</button>
+
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>Eliel Poster — Agence de communication créative</p>
+        <p>Création de sites web · Design graphique · Contenus multimédias</p>
+        <p>Contact : <a href="mailto:postereliel@gmail.com">postereliel@gmail.com</a> | <a href="tel:0576224680">0576224680</a></p>
+    </footer>
+
+    <script>
+        const form = document.getElementById('formPostuler');
+        const messageRetour = document.getElementById('messageRetour');
+        const btnSoumettre = document.getElementById('btnSoumettre');
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            messageRetour.textContent = '';
+            messageRetour.className = 'message-retour';
+
+            const nom         = document.getElementById('nom').value.trim();
+            const prenom      = document.getElementById('prenom').value.trim();
+            const email       = document.getElementById('email').value.trim();
+            const telephone   = document.getElementById('telephone').value.trim();
+            const residence   = document.getElementById('residence').value.trim();
+            const poste       = document.getElementById('poste').value;
+            const typeContrat = document.getElementById('type_contrat').value;
+            const experience  = document.getElementById('experience').value;
+            const portfolio   = document.getElementById('portfolio').value.trim();
+            const motivation  = document.getElementById('motivation').value.trim();
+
+            if (!nom || !prenom || !email || !telephone || !residence || !poste || !typeContrat || !experience || !motivation) {
+                afficherMessage('Veuillez remplir tous les champs obligatoires.', 'erreur');
+                return;
+            }
+
+            if (!validerEmail(email)) {
+                afficherMessage('Veuillez entrer une adresse e-mail valide.', 'erreur');
+                return;
+            }
+
+            const candidature = { nom, prenom, email, telephone, residence, poste, type_contrat: typeContrat, experience, portfolio, motivation };
+
+            btnSoumettre.disabled = true;
+            btnSoumettre.textContent = 'Envoi en cours...';
+
+            try {
+                const reponse = await fetch('/api/candidatures', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(candidature)
+                });
+
+                const data = await reponse.json();
+
+                if (reponse.ok) {
+                    afficherMessage('Votre candidature a bien été envoyée ! Nous vous contacterons bientôt.', 'succes');
+                    form.reset();
+                } else {
+                    afficherMessage(data.message || 'Une erreur est survenue. Veuillez réessayer.', 'erreur');
+                }
+
+            } catch (erreur) {
+                afficherMessage('Impossible de contacter le serveur. Vérifiez votre connexion.', 'erreur');
+            } finally {
+                btnSoumettre.disabled = false;
+                btnSoumettre.textContent = 'Envoyer ma candidature';
+            }
+        });
+
+        function afficherMessage(texte, type) {
+            messageRetour.textContent = texte;
+            messageRetour.className = 'message-retour ' + type;
+            messageRetour.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function validerEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+    </script>
+
+</body>
+</html>

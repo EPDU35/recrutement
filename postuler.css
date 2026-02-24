@@ -1,0 +1,406 @@
+/* ============================================================
+   ELIEL POSTER — POSTULER CSS COMPLET INDÉPENDANT
+   Toutes les variables et styles inclus
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Outfit:wght@300;400;500;600&display=swap');
+
+/* ============================================================
+   VARIABLES
+   ============================================================ */
+:root {
+    --rouge:         #d32f2f;
+    --rouge-sombre:  #b71c1c;
+    --rouge-clair:   #ef5350;
+    --rouge-pale:    #ffebee;
+
+    --noir:          #0d0d0d;
+    --gris-fonce:    #1e1e1e;
+    --gris-moyen:    #4a4a4a;
+    --gris-clair:    #9e9e9e;
+    --gris-pale:     #f5f5f5;
+    --blanc:         #ffffff;
+
+    --font-titre:    'Poppins', sans-serif;
+    --font-corps:    'Outfit', sans-serif;
+
+    --radius-sm:     4px;
+    --radius-md:     8px;
+    --radius-lg:     50px;
+
+    --ombre-douce:   0 4px 24px rgba(211, 47, 47, 0.08);
+    --ombre-forte:   0 8px 40px rgba(211, 47, 47, 0.18);
+
+    --transition:    0.3s ease;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-corps);
+    background-color: var(--blanc);
+    color: var(--noir);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* ============================================================
+   TYPOGRAPHIE
+   ============================================================ */
+h1, h2, h3, h4 {
+    font-family: var(--font-titre);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--noir);
+}
+
+h1 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+
+h4 {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--rouge);
+}
+
+p {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--gris-moyen);
+    line-height: 1.85;
+}
+
+/* ============================================================
+   EN-TÊTE — LOGO SEUL
+   ============================================================ */
+.entete-logo {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.2rem 6%;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(211, 47, 47, 0.08);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* ============================================================
+   BOUTON
+   ============================================================ */
+.btn-hero {
+    display: inline-block;
+    font-family: var(--font-corps);
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.85rem 2rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background var(--transition), color var(--transition),
+                transform var(--transition), box-shadow var(--transition);
+    border: 2px solid var(--rouge);
+    background: var(--rouge);
+    color: var(--blanc);
+}
+
+.btn-hero:hover {
+    background: var(--rouge-sombre);
+    border-color: var(--rouge-sombre);
+    transform: translateY(-2px);
+    box-shadow: var(--ombre-forte);
+}
+
+/* ============================================================
+   SECTION POSTULER
+   ============================================================ */
+.postuler-section {
+    min-height: calc(100vh - 80px);
+    padding: 8rem 6% 5rem;
+    background: var(--gris-pale);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.postuler-wrapper {
+    background: var(--blanc);
+    border: 1px solid rgba(211, 47, 47, 0.1);
+    border-radius: var(--radius-md);
+    padding: 3.5rem 3rem;
+    width: 100%;
+    max-width: 720px;
+    box-shadow: var(--ombre-douce);
+}
+
+/* ============================================================
+   EN-TÊTE DU FORMULAIRE
+   ============================================================ */
+.postuler-header {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(211, 47, 47, 0.1);
+}
+
+.postuler-header h4 {
+    margin-bottom: 0.6rem;
+}
+
+.postuler-header h1 {
+    margin-bottom: 0.6rem;
+}
+
+.postuler-header p {
+    color: var(--gris-clair);
+    font-size: 0.95rem;
+}
+
+/* ============================================================
+   SECTIONS DU FORMULAIRE
+   ============================================================ */
+.form-section {
+    margin-bottom: 2.5rem;
+}
+
+.section-titre {
+    font-family: var(--font-titre);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--rouge);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(211, 47, 47, 0.12);
+}
+
+/* ============================================================
+   FORM ROW
+   ============================================================ */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+}
+
+/* ============================================================
+   INPUT BOX
+   ============================================================ */
+.input-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1.4rem;
+}
+
+.input-box label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gris-moyen);
+}
+
+.requis {
+    color: var(--rouge);
+    margin-left: 2px;
+}
+
+.optionnel {
+    color: var(--gris-clair);
+    font-weight: 400;
+    font-size: 0.75rem;
+    text-transform: none;
+    letter-spacing: 0;
+    margin-left: 4px;
+}
+
+.input-box input,
+.input-box select,
+.input-box textarea {
+    font-family: var(--font-corps);
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--noir);
+    background: var(--gris-pale);
+    border: 1.5px solid rgba(211, 47, 47, 0.12);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+    outline: none;
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    resize: vertical;
+}
+
+.input-box input:focus,
+.input-box select:focus,
+.input-box textarea:focus {
+    border-color: var(--rouge);
+    box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+    background: var(--blanc);
+}
+
+.input-box input::placeholder,
+.input-box textarea::placeholder {
+    color: var(--gris-clair);
+    font-weight: 300;
+}
+
+/* ============================================================
+   SELECT WRAPPER
+   ============================================================ */
+.select-wrapper {
+    position: relative;
+}
+
+.select-wrapper::after {
+    content: '▾';
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gris-clair);
+    pointer-events: none;
+    font-size: 0.85rem;
+}
+
+/* ============================================================
+   MESSAGE RETOUR
+   ============================================================ */
+.message-retour {
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding: 0.8rem 1rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1.5rem;
+    display: none;
+}
+
+.message-retour.erreur {
+    display: block;
+    background: var(--rouge-pale);
+    color: var(--rouge-sombre);
+    border: 1px solid rgba(211, 47, 47, 0.3);
+}
+
+.message-retour.succes {
+    display: block;
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+}
+
+/* ============================================================
+   BOUTON SUBMIT
+   ============================================================ */
+.postuler-wrapper .btn-hero {
+    width: 100%;
+    text-align: center;
+    padding: 1rem 2rem;
+    font-size: 0.9rem;
+}
+
+.postuler-wrapper .btn-hero:disabled {
+    background: var(--gris-clair);
+    border-color: var(--gris-clair);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+    background: var(--noir);
+    padding: 3rem 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    border-top: 3px solid var(--rouge);
+}
+
+footer p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+    font-weight: 300;
+}
+
+footer a {
+    color: var(--rouge-clair);
+    transition: color var(--transition);
+}
+
+footer a:hover {
+    color: var(--blanc);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+
+@media (max-width: 700px) {
+    .postuler-section {
+        padding: 7rem 4% 4rem;
+    }
+
+    .postuler-wrapper {
+        padding: 2.5rem 1.5rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    footer {
+        flex-direction: column;
+        text-align: center;
+    }
+}
