@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "postuler.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "https://recrutement-7th0.onrender.com/api/$1" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}

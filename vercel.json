@@ -1,8 +1,0 @@
-{
-  "buildCommand": null,
-  "outputDirectory": ".",
-  "framework": null,
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "https://recrutement-7th0.onrender.com/api/$1" }
-  ]
-}
